@@ -1,0 +1,2 @@
+# go-otel
+Opentelemetry poc
