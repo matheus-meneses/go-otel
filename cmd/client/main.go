@@ -18,7 +18,7 @@ func main() {
 
 	// Bootstrap tracer.
 	prv, err := trace.NewProvider(trace.ProviderConfig{
-		ProviderEndpoint: "127.0.0.1:4318",
+		ProviderEndpoint: "127.0.0.1:4317",
 		ServiceName:      "client",
 		ServiceVersion:   "1.0.0",
 		Environment:      "dev",

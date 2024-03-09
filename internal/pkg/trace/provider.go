@@ -4,8 +4,8 @@ import (
 	"context"
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/exporters/otlp/otlptrace"
-	"go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracehttp"
-	_ "go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracehttp"
+	"go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc"
+	_ "go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc"
 	"go.opentelemetry.io/otel/propagation"
 	semconv "go.opentelemetry.io/otel/semconv/v1.24.0"
 	"go.opentelemetry.io/otel/trace"
@@ -42,9 +42,12 @@ func NewProvider(config ProviderConfig) (Provider, error) {
 
 	exp, err := otlptrace.New(
 		context.Background(),
-		otlptracehttp.NewClient(
-			otlptracehttp.WithEndpoint(config.ProviderEndpoint),
-			otlptracehttp.WithInsecure()))
+		otlptracegrpc.NewClient(
+			otlptracegrpc.WithEndpoint(config.ProviderEndpoint),
+			otlptracegrpc.WithInsecure()))
+	//otlptracehttp.NewClient(
+	//	otlptracehttp.WithEndpoint(config.ProviderEndpoint),
+	//	otlptracehttp.WithInsecure()))
 	if err != nil {
 		return Provider{}, err
 	}
